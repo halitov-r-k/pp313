@@ -1,22 +1,18 @@
 package ru.kata.pp313.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name="roles")
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
 
-  /**/   //List<Role> roles;
+    public Role() { }
 
-    public User() {
-    }
-
-    public User(String name, List<Role> roles) {
+    public Role(String name) {
         this.name = name;
     }
 
@@ -35,13 +31,4 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }
-

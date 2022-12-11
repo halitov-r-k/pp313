@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-@Configuration
+@Configuration//необязательно
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
@@ -19,17 +19,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.successUserHandler = successUserHandler;
     }
 
+    //ниже определяется куда у пользователя есть доступ, порядок ввода пароля, действия после ввода пароля
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .authorizeRequests()//правила доступа(ограничения)
+                .antMatchers("/", "/index").permitAll()//вход для авторизованных пользователей остальное для всех
                 .anyRequest().authenticated()
-                .and()
-                .formLogin().successHandler(successUserHandler)
+                .and()//конец блока настройки
+                .formLogin().successHandler(successUserHandler)//form for authentication обработчик успешной аутентификации
                 .permitAll()
-                .and()
-                .logout()
+                .and()//конец блока настройки
+                .logout()//направление на страницу
                 .permitAll();
     }
 
